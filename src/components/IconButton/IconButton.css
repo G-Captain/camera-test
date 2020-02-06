@@ -1,0 +1,27 @@
+
+.icon-button {
+	cursor: pointer;
+	display: inline-block;
+	border: 0;
+	background: transparent;
+	color: #666666;
+	text-decoration: underline;
+	vertical-align: middle;
+	outline: 0;
+}
+
+.icon-button .fa {
+	font-size: 1.25rem;
+	opacity: 0.4;
+	-webkit-transition: opacity .2s;
+	-moz-transition: opacity .2s;
+	transition: opacity .2s;
+}
+
+.icon-button .fa:hover {
+	opacity: 1;
+}
+
+.icon-button-no-left-padding {
+	padding-left: 0;
+}
