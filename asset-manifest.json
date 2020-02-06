@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/camera-test/static/css/main.905e5d89.chunk.css",
+    "main.js": "/camera-test/static/js/main.d852c487.chunk.js",
+    "main.js.map": "/camera-test/static/js/main.d852c487.chunk.js.map",
+    "runtime-main.js": "/camera-test/static/js/runtime-main.ff0ab6cc.js",
+    "runtime-main.js.map": "/camera-test/static/js/runtime-main.ff0ab6cc.js.map",
+    "static/js/2.bee1137f.chunk.js": "/camera-test/static/js/2.bee1137f.chunk.js",
+    "static/js/2.bee1137f.chunk.js.map": "/camera-test/static/js/2.bee1137f.chunk.js.map",
+    "index.html": "/camera-test/index.html",
+    "precache-manifest.7192b189efb54b62acc4c04e71552766.js": "/camera-test/precache-manifest.7192b189efb54b62acc4c04e71552766.js",
+    "service-worker.js": "/camera-test/service-worker.js",
+    "static/css/main.905e5d89.chunk.css.map": "/camera-test/static/css/main.905e5d89.chunk.css.map",
+    "static/js/2.bee1137f.chunk.js.LICENSE.txt": "/camera-test/static/js/2.bee1137f.chunk.js.LICENSE.txt",
+    "static/media/nikaragua2.jpg": "/camera-test/static/media/nikaragua2.543678af.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ff0ab6cc.js",
+    "static/js/2.bee1137f.chunk.js",
+    "static/css/main.905e5d89.chunk.css",
+    "static/js/main.d852c487.chunk.js"
+  ]
+}
