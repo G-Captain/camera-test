@@ -17,7 +17,8 @@ export default class TicketPhotoPicker extends React.PureComponent {
 			image: null,
 			isPaintModeEnabled: false,
 			ticketAttachmentTypes: [],
-			selectedTicketAttachmentType: null
+			selectedTicketAttachmentType: null,
+			info: ''
 		}
 
 		this.cancelButtonClickCallback = this.cancelButtonClickCallback.bind(this);
@@ -29,6 +30,7 @@ export default class TicketPhotoPicker extends React.PureComponent {
 
 		this.ticketPhotoPreviewGetModifiedImageCallback = this.ticketPhotoPreviewGetModifiedImageCallback.bind(this);
 		this.ticketPhotoTypeDialogTriggerSelectCallback = this.ticketPhotoTypeDialogTriggerSelectCallback.bind(this);
+		this.infoCallback = this.infoCallback.bind(this);
 
 		this.webcamImageReference = React.createRef();
 	}
@@ -44,6 +46,12 @@ export default class TicketPhotoPicker extends React.PureComponent {
 		if(this.getImageTicketAttachmentTypesCancelable) {
 			this.getImageTicketAttachmentTypesCancelable.cancel();
 		}
+	}
+
+	infoCallback(info,x, y) {
+		this.setState({
+			info: info + ' ' + x + ' ' + y
+		});
 	}
 
 	loadTicketAttachmentTypes() {
@@ -141,23 +149,31 @@ export default class TicketPhotoPicker extends React.PureComponent {
 				{(this.state.isLoading === false && this.state.isProcessing === false) &&
 					<Fragment>
 
-						{this.state.image !== null &&
+						<div className='ticket-photo-picker-header-container'>
+							<div className='ticket-photo-picker-header'>
+								VER 24 DPI: {window.devicePixelRatio} {this.state.info}
+							</div>							
+						</div>
+
+
+
+						{/* {this.state.image !== null && */}
 							<Fragment>
 								<TicketPhotoPreview
 									image={this.state.image}
 									paintMode={this.state.isPaintModeEnabled}
-									modifiedImage={this.ticketPhotoPreviewGetModifiedImageCallback}>
+									modifiedImage={this.ticketPhotoPreviewGetModifiedImageCallback}
+									setInfo={this.infoCallback}>
 								</TicketPhotoPreview>
-
-								<IconButton
+								
+								{/* <IconButton
 									iconKey={'arrow-left'}
 									additionalClass='fixed-button left-bottom-element'
 									onClick={this.dismissButtonClickCallback}>
-								</IconButton>
+								</IconButton> */}
 							</Fragment>
-						}
 
-						<div className={this.state.image !== null ? 'hidden' : ''}>
+						{/* <div className={this.state.image !== null ? 'hidden' : ''}>
 							<WebcamImage
 								ref={this.webcamImageReference}>
 							</WebcamImage>
@@ -173,7 +189,7 @@ export default class TicketPhotoPicker extends React.PureComponent {
 								additionalClass='fixed-button center-bottom-element'
 								onClick={this.captureButtonClickCallback}>
 							</IconButton>
-						</div>
+						</div> */}
 					</Fragment>
 				}
 

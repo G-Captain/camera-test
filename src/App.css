@@ -73,20 +73,6 @@
   right: 5%;
 }
 
-.image-canvas {
-  position: fixed;
-  background-color: #000000;
-}
-
-.ticket-photo-preview-image-canvas-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vh;
-  height: 100vh;
-  background-color: #000000;
-}
-
 .hidden {
 	display: none;
 }

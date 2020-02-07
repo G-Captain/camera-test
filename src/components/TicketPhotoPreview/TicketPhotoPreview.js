@@ -10,9 +10,8 @@ export default class TicketPhotoPreview extends React.PureComponent {
 
 		this.state = {
 			windowHeight : window.innerHeight,
-			windowWidth: window.innerWidth
-			// ,
-			// image: require('./nikaragua2.jpg')
+			windowWidth: window.innerWidth,
+			image: require('./mapucze.jpg')
 		}
 		console.log("TCL: TicketPhotoPreview -> constructor -> this.props.image", this.props.image);
 
@@ -48,10 +47,11 @@ export default class TicketPhotoPreview extends React.PureComponent {
 		})
 	}
 
-	imageCanvasRenderCallback() {
+	imageCanvasRenderCallback(info) {
 		this.imageCanvasReference.current.fitToBounds();
 		this.imageCanvasReference.current.center();
 		this.imageCanvasReference.current.redraw();
+		this.props.setInfo(info, this.state.windowWidth, this.state.windowHeight);
 	}
 
 	windowTouchStartCallback(event) {
@@ -79,13 +79,13 @@ export default class TicketPhotoPreview extends React.PureComponent {
 	render() {
 		return(
 			<div className='ticket-photo-preview-image-canvas-container'>
-				<ImageCanvas
-					ref={this.imageCanvasReference}
-					src={this.props.image}
-					boundWidth={this.state.windowWidth}
-					boundHeight={this.state.windowHeight}
-					onRender={this.imageCanvasRenderCallback}>
-				</ImageCanvas>
+					<ImageCanvas
+						ref={this.imageCanvasReference}
+						src={this.state.image}
+						boundWidth={this.state.windowWidth}
+						boundHeight={this.state.windowHeight}
+						onRender={this.imageCanvasRenderCallback}>
+					</ImageCanvas>
 			</div>
 		);
 	}

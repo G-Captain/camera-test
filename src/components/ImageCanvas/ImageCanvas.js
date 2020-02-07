@@ -8,6 +8,10 @@ export default class ImageCanvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			info: ''
+		}
+
 		this.x = 0;
 		this.y = 0;
 
@@ -47,10 +51,12 @@ export default class ImageCanvas extends React.PureComponent {
 
 		image.onload = () => {
 			
-			this.canvasElementReference.current.width = this.props.boundWidth;
-            console.log("TCL: ImageCanvas -> image.onload -> this.props.boundWidth", this.props.boundWidth);
-			this.canvasElementReference.current.height = this.props.boundHeight;
-            console.log("TCL: ImageCanvas -> image.onload -> this.props.boundHeight", this.props.boundHeight);
+		const dpi = window.devicePixelRatio;
+			this.canvasElementReference.current.width = image.width;//dpi *this.props.boundWidth;
+            console.log("TCL: ImageCanvas -> image.onload -> this.canvasElementReference", this.canvasElementReference);
+			// this.canvasElementReference.current.width = this.props.boundWidth;
+			this.canvasElementReference.current.height = image.height;//dpi *this.props.boundHeight;
+			// this.canvasElementReference.current.height = this.props.boundHeight;
 
 			this.width = image.width;
 			this.height = image.height;
@@ -58,11 +64,14 @@ export default class ImageCanvas extends React.PureComponent {
 			console.log(image.width, image.height);
 
 			this.modifiedImage = false;
-
+			this.setState({
+				info: image.width + ' ' + image.height
+			})
 			this.canvasContext = this.canvasElementReference.current.getContext("2d");
-			this.canvasContext.imageSmoothingEnabled = false;
+			// this.canvasContext.imageSmoothingEnabled = false;
+			// this.canvasContext.imageSmoothingQuality = 'high';
 			if(this.props.onRender) {
-				this.props.onRender();
+				this.props.onRender(this.state.info);
 			}
 		};
 	}
@@ -84,11 +93,11 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	setWidth(width) {
-		this.width = width;
+		// this.width = width;
 	}
 
 	setHeight(height) {
-		this.height = height;
+		// this.height = height;
 	}
 
 	getWidth() {
@@ -115,10 +124,11 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	scale(ratio) {
-		const currentWidth = this.getWidth();
-		const currentHeight = this.getHeight();
-		this.setWidth(currentWidth * ratio);
-		this.setHeight(currentHeight * ratio);
+		// const currentWidth = this.getWidth();
+		// const currentHeight = this.getHeight();
+		// this.setWidth(currentWidth * ratio);
+		// this.setHeight(currentHeight * ratio);
+		// this.canvasContext.scale(0.25,0.25);
 	}
 
 	setXWithBounds(x) {
@@ -137,11 +147,16 @@ export default class ImageCanvas extends React.PureComponent {
 		this.canvasContext.clearRect(0, 0, this.canvasContext.canvas.width, this.canvasContext.canvas.height);
 		this.canvasContext.save();
 
+		const dpi = window.devicePixelRatio;
 		const radianAngle = this.angle * Math.PI / 180;
 		const nextRadianAngle = (this.angle + 90) * Math.PI / 180;
 
 		var relativeWidth = Math.abs((Math.cos(radianAngle) * this.width)) + Math.abs((Math.sin(radianAngle) * this.height));
+        console.log("TCL: ImageCanvas -> redraw -> relativeWidth", relativeWidth);
 		var relativeHeight = Math.abs((Math.cos(radianAngle) * this.height)) + Math.abs((Math.sin(radianAngle) * this.width));
+        console.log("TCL: ImageCanvas -> redraw -> relativeHeight", relativeHeight);
+		// var relativeWidth = this.width;
+		// var relativeHeight = this.height;
 
 		var relativeX = Math.cos(radianAngle) * this.x + Math.sin(radianAngle) * this.y;
 		var relativeY = Math.cos(nextRadianAngle) * this.x + Math.sin(nextRadianAngle) * this.y;
@@ -167,23 +182,39 @@ export default class ImageCanvas extends React.PureComponent {
 		}
 
 		this.canvasContext.rotate(this.angle * Math.PI / 180);
-		this.canvasContext.translate(translateX, translateY);
-		const dpi = window.devicePixelRatio;
-        console.log("TCL: ImageCanvas -> redraw -> dpi", dpi);
+		// this.canvasContext.translate(translateX, translateY);
 		const style_width = +getComputedStyle(this.canvasContext.canvas).getPropertyValue("width").slice(0, -2);
-        console.log("TCL: ImageCanvas -> redraw -> this.canvasContext", this.canvasContext);
 		const style_height = +getComputedStyle(this.canvasContext.canvas).getPropertyValue("height").slice(0, -2);
-        console.log("TCL: ImageCanvas -> redraw -> style_height style_width", style_height, style_width);
-		this.canvasContext.drawImage(this.imageElement, 0, 0, this.imageElement.width, this.imageElement.height, 0, 0, relativeWidth, relativeHeight);
-		// this.ctx.imageSmoothingEnabled
-        // console.log("TCL: ImageCanvas -> redraw -> this.ctx.imageSmoothingEnabled", this.ctx.imageSmoothingEnabled);
+		console.log(window);
+		// this.canvasElementReference.current.style.height = this.props.boundHeight;
+		// this.canvasElementReference.current.style.width = this.props.boundWidth;
+		this.canvasContext.drawImage(this.imageElement, 0, 0, this.imageElement.width, this.imageElement.height, 0, 0, this.imageElement.width, this.imageElement.height);
+        console.log("TCL: ImageCanvas -> redraw -> this.width, this.height", this);
+
+
+		const calcWidthRatio = this.imageElement.width/this.props.boundWidth;
+		const calcHeightRatio = this.imageElement.height/this.props.boundHeight;
+		const calcRatio = Math.max(calcHeightRatio,calcWidthRatio);
+		if(calcHeightRatio > calcWidthRatio) {
+			this.canvasElementReference.current.style.width = this.imageElement.width/calcHeightRatio+'px';
+			this.canvasElementReference.current.style.height = this.props.boundHeight+'px';
+		} else {
+			this.canvasElementReference.current.style.width = this.props.boundWidth+'px';
+			this.canvasElementReference.current.style.height = this.imageElement.height/calcWidthRatio+'px';
+		}
+		// this.canvasElementReference.current.style.width = this.props.boundWidth+'px';
+        console.log("TCL: ImageCanvas -> redraw -> this.canvasElementReference.current.style.width", this.canvasElementReference.current.style.width);
+		// this.canvasElementReference.current.style.height = this.props.boundHeight+'px';
+        console.log("TCL: ImageCanvas -> redraw -> this.canvasElementReference.current.style.height", this.canvasElementReference.current.style.height);
 		if(this.invertMode === true) {
 			this.canvasContext.globalCompositeOperation = 'difference';
 			this.canvasContext.fillStyle = 'white';
 			this.canvasContext.fillRect(0, 0, relativeWidth, relativeHeight);
-        }
+		}
+		// this.canvasContext.backingStorePixelRatio;
+		// this.canvasContext.setTransform(dpi, 0,0,dpi,0,0);
 
-		this.canvasContext.restore();
+		// this.canvasContext.restore();
 	}
 
 	fitToBounds() {
@@ -191,7 +222,8 @@ export default class ImageCanvas extends React.PureComponent {
 		const widthRatio = (this.props.boundWidth - padding) / this.imageElement.width;
 		const heightRatio = (this.props.boundHeight - padding) / this.imageElement.height;
 		const scaleRatio = Math.min(1, widthRatio, heightRatio);
-		this.scale(scaleRatio);
+		// this.scale(scaleRatio);
+		// this.canvasContext.scale(scaleRatio, scaleRatio);
 	}
 
 	isZoomOutAvailable() {
@@ -226,29 +258,29 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	zoom(factor, mouseFocus) {
-		if(factor < 1 && this.isZoomOutAvailable() === false) {
-			return false;
-		}
+		// if(factor < 1 && this.isZoomOutAvailable() === false) {
+		// 	return false;
+		// }
 
-		this.scale(factor);
+		// this.scale(factor);
 
-		const relativeFactor = factor - 1;
-		if(this.getWidth() > this.props.boundWidth && mouseFocus === true) {
-			const currentX = this.getX();
-			const offsetX = (WindowService.getMouseX() - currentX) * relativeFactor;
-			let newX = currentX - offsetX;
-			this.setXWithBounds(newX);
-		} else {
-			this.centerX();
-		}
-		if(this.getHeight() > this.props.boundHeight && mouseFocus === true) {
-			const currentY = this.getY();
-			const offsetY = (WindowService.getMouseY() - currentY) * relativeFactor;
-			let newY = currentY - offsetY;
-			this.setYWithBounds(newY);
-		} else {
-			this.centerY();
-		}
+		// const relativeFactor = factor - 1;
+		// if(this.getWidth() > this.props.boundWidth && mouseFocus === true) {
+		// 	const currentX = this.getX();
+		// 	const offsetX = (WindowService.getMouseX() - currentX) * relativeFactor;
+		// 	let newX = currentX - offsetX;
+		// 	this.setXWithBounds(newX);
+		// } else {
+		// 	this.centerX();
+		// }
+		// if(this.getHeight() > this.props.boundHeight && mouseFocus === true) {
+		// 	const currentY = this.getY();
+		// 	const offsetY = (WindowService.getMouseY() - currentY) * relativeFactor;
+		// 	let newY = currentY - offsetY;
+		// 	this.setYWithBounds(newY);
+		// } else {
+		// 	this.centerY();
+		// }
 	}
 
 	toggleInvertMode() {

@@ -1,4 +1,5 @@
 .image-canvas {
 	position: fixed;
 	background-color: #000000;
+	/* image-rendering: pixelated; */
 }
