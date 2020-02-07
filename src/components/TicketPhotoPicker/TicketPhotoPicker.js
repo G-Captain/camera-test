@@ -151,13 +151,13 @@ export default class TicketPhotoPicker extends React.PureComponent {
 
 						<div className='ticket-photo-picker-header-container'>
 							<div className='ticket-photo-picker-header'>
-								VER 24 DPI: {window.devicePixelRatio} {this.state.info}
+								VER 25 DPI: {window.devicePixelRatio} {this.state.info}
 							</div>							
 						</div>
 
 
 
-						{/* {this.state.image !== null && */}
+						{this.state.image !== null &&
 							<Fragment>
 								<TicketPhotoPreview
 									image={this.state.image}
@@ -166,14 +166,14 @@ export default class TicketPhotoPicker extends React.PureComponent {
 									setInfo={this.infoCallback}>
 								</TicketPhotoPreview>
 								
-								{/* <IconButton
+								<IconButton
 									iconKey={'arrow-left'}
 									additionalClass='fixed-button left-bottom-element'
 									onClick={this.dismissButtonClickCallback}>
-								</IconButton> */}
+								</IconButton>
 							</Fragment>
-
-						{/* <div className={this.state.image !== null ? 'hidden' : ''}>
+						}
+						<div className={this.state.image !== null ? 'hidden' : ''}>
 							<WebcamImage
 								ref={this.webcamImageReference}>
 							</WebcamImage>
@@ -189,7 +189,7 @@ export default class TicketPhotoPicker extends React.PureComponent {
 								additionalClass='fixed-button center-bottom-element'
 								onClick={this.captureButtonClickCallback}>
 							</IconButton>
-						</div> */}
+						</div>
 					</Fragment>
 				}
 

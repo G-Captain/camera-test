@@ -81,7 +81,7 @@ export default class TicketPhotoPreview extends React.PureComponent {
 			<div className='ticket-photo-preview-image-canvas-container'>
 					<ImageCanvas
 						ref={this.imageCanvasReference}
-						src={this.state.image}
+						src={this.props.image}
 						boundWidth={this.state.windowWidth}
 						boundHeight={this.state.windowHeight}
 						onRender={this.imageCanvasRenderCallback}>
