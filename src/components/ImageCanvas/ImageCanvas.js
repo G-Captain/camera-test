@@ -299,7 +299,7 @@ export default class ImageCanvas extends React.PureComponent {
 
 	getModifiedImage() {
 		if(this.modifiedImage === true) {
-			return this.canvasElementReference.current.toDataURL('image/jpeg', 0.10);
+			return this.canvasElementReference.current.toDataURL('image/jpeg', 0.92);
 		}
 	}
 
