@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import WebcamImage from 'components/WebcamImage/WebcamImage.js';
+import WebcamImage from './../WebcamImage/WebcamImage.js';
 import TicketPhotoPreview from './../TicketPhotoPreview/TicketPhotoPreview.js';
 import IconButton from './../IconButton/IconButton.js';
 

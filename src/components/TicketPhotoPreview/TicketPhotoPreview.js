@@ -10,8 +10,9 @@ export default class TicketPhotoPreview extends React.PureComponent {
 
 		this.state = {
 			windowHeight : window.innerHeight,
-			windowWidth: window.innerWidth,
-			image: require('./nikaragua2.jpg')
+			windowWidth: window.innerWidth
+			// ,
+			// image: require('./nikaragua2.jpg')
 		}
 		console.log("TCL: TicketPhotoPreview -> constructor -> this.props.image", this.props.image);
 
