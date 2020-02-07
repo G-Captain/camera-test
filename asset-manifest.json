@@ -1,22 +1,23 @@
 {
   "files": {
     "main.css": "/camera-test/static/css/main.b6bfc312.chunk.css",
-    "main.js": "/camera-test/static/js/main.853bebfa.chunk.js",
-    "main.js.map": "/camera-test/static/js/main.853bebfa.chunk.js.map",
+    "main.js": "/camera-test/static/js/main.1e8751d6.chunk.js",
+    "main.js.map": "/camera-test/static/js/main.1e8751d6.chunk.js.map",
     "runtime-main.js": "/camera-test/static/js/runtime-main.ff0ab6cc.js",
     "runtime-main.js.map": "/camera-test/static/js/runtime-main.ff0ab6cc.js.map",
-    "static/js/2.fbba9a34.chunk.js": "/camera-test/static/js/2.fbba9a34.chunk.js",
-    "static/js/2.fbba9a34.chunk.js.map": "/camera-test/static/js/2.fbba9a34.chunk.js.map",
+    "static/js/2.bee1137f.chunk.js": "/camera-test/static/js/2.bee1137f.chunk.js",
+    "static/js/2.bee1137f.chunk.js.map": "/camera-test/static/js/2.bee1137f.chunk.js.map",
     "index.html": "/camera-test/index.html",
-    "precache-manifest.cd5dc993c45921e28359c7512e584eb5.js": "/camera-test/precache-manifest.cd5dc993c45921e28359c7512e584eb5.js",
+    "precache-manifest.59ada588329844f30a262211ead3c4b7.js": "/camera-test/precache-manifest.59ada588329844f30a262211ead3c4b7.js",
     "service-worker.js": "/camera-test/service-worker.js",
     "static/css/main.b6bfc312.chunk.css.map": "/camera-test/static/css/main.b6bfc312.chunk.css.map",
-    "static/js/2.fbba9a34.chunk.js.LICENSE.txt": "/camera-test/static/js/2.fbba9a34.chunk.js.LICENSE.txt"
+    "static/js/2.bee1137f.chunk.js.LICENSE.txt": "/camera-test/static/js/2.bee1137f.chunk.js.LICENSE.txt",
+    "static/media/mapucze.jpg": "/camera-test/static/media/mapucze.620d59e7.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.ff0ab6cc.js",
-    "static/js/2.fbba9a34.chunk.js",
+    "static/js/2.bee1137f.chunk.js",
     "static/css/main.b6bfc312.chunk.css",
-    "static/js/main.853bebfa.chunk.js"
+    "static/js/main.1e8751d6.chunk.js"
   ]
 }
