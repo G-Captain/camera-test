@@ -8,10 +8,10 @@ library.add( faCamera, faTimes, faArrowLeft);
 
 function App() {
   return (
-    // <TicketPhotoPicker>
-    // 	</TicketPhotoPicker>
+    
     <div className='App'>
-      <button>HELLO!</button>
+      <TicketPhotoPicker>
+      </TicketPhotoPicker>
     </div>
   );
 }
