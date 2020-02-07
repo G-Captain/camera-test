@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "395f68834d0ea85b46a942b1c2aae155",
+    "revision": "b0a3eb0578eb79210ee26be32b323a82",
     "url": "/camera-test/index.html"
   },
   {
-    "revision": "6e965a2137ba1b23bc21",
+    "revision": "8ba191bdb7db64316915",
     "url": "/camera-test/static/css/main.f90d16f0.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/camera-test/static/js/2.fbba9a34.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6e965a2137ba1b23bc21",
-    "url": "/camera-test/static/js/main.10725af0.chunk.js"
+    "revision": "8ba191bdb7db64316915",
+    "url": "/camera-test/static/js/main.5dc321de.chunk.js"
   },
   {
     "revision": "32b6b5efe85ea61b2490",
