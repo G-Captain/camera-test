@@ -151,7 +151,7 @@ export default class TicketPhotoPicker extends React.PureComponent {
 
 						<div className='ticket-photo-picker-header-container'>
 							<div className='ticket-photo-picker-header'>
-								VER 25 DPI: {window.devicePixelRatio} {this.state.info}
+								VER 1 DPI: {window.devicePixelRatio} {this.state.info}
 							</div>							
 						</div>
 

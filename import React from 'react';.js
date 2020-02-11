@@ -35,7 +35,6 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	componentDidMount() {
-
 		this.reloadImage();
 	}
 
@@ -46,17 +45,13 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	reloadImage() {
-		this.imageElement = null;
 		const image = new Image();
 		image.src = this.props.src;
-        console.log("TCL: ImageCanvas -> reloadImage -> image", image.width, image.height);
-		
 		this.imageElement = image;
 
 		image.onload = () => {
 			this.canvasElementReference.current.width = image.width;
 			this.canvasElementReference.current.height = image.height;
-
 
 			this.width = image.width;
 			this.height = image.height;
@@ -105,25 +100,26 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	center() {
-		this.centerX();
-		this.centerY();
+		// this.centerX();
+		// this.centerY();
 	}
 
-	centerX() {
-		const newX = (this.props.boundWidth - this.getWidth()) / 2;
-		this.setX(newX);
-	}
+	// centerX() {
+	// 	const newX = (this.props.boundWidth - this.getWidth()) / 2;
+	// 	this.setX(newX);
+	// }
 
-	centerY() {
-		const newY = (this.props.boundHeight - this.getHeight()) / 2;
-		this.setY(newY);
-	}
+	// centerY() {
+	// 	const newY = (this.props.boundHeight - this.getHeight()) / 2;
+	// 	this.setY(newY);
+	// }
 
 	scale(ratio) {
 		const currentWidth = this.getWidth();
 		const currentHeight = this.getHeight();
 		this.setWidth(currentWidth * ratio);
 		this.setHeight(currentHeight * ratio);
+		// this.canvasContext.scale(0.25,0.25);
 	}
 
 	setXWithBounds(x) {
@@ -149,8 +145,6 @@ export default class ImageCanvas extends React.PureComponent {
         console.log("TCL: ImageCanvas -> redraw -> relativeWidth", relativeWidth);
 		var relativeHeight = Math.abs((Math.cos(radianAngle) * this.height)) + Math.abs((Math.sin(radianAngle) * this.width));
         console.log("TCL: ImageCanvas -> redraw -> relativeHeight", relativeHeight);
-        console.log("TCL: ImageCanvas -> redraw -> image.width", this.imageElement.width);
-        console.log("TCL: ImageCanvas -> redraw -> image.height", this.imageElement.height);
 		// relativeWidth = this.imageWidth;
 		// relativeHeight = this.imageHeight;
 
@@ -166,24 +160,30 @@ export default class ImageCanvas extends React.PureComponent {
 		}
 		if(this.angle === 90) {
 			translateX = relativeX;
-			translateY = relativeY - relativeHeight;
+			translateY = relativeY;// - relativeHeight;
 		}
 		if(this.angle === 180) {
-			translateX = relativeX - relativeWidth;
-			translateY = relativeY - relativeHeight;
+			translateX = relativeX;// - relativeWidth;
+			translateY = relativeY;// - relativeHeight;
 		}
 		if(this.angle === 270) {
-			translateX = relativeX - relativeWidth;
+			translateX = relativeX;// - relativeWidth;
 			translateY = relativeY;
 		}
 
 		this.canvasContext.rotate(this.angle * Math.PI / 180);
-		this.canvasContext.translate(translateX, translateY);
+		// this.canvasContext.translate(translateX, translateY);
 		
-		this.canvasElementReference.current.style.height = relativeHeight+"px";
-		this.canvasElementReference.current.style.width = relativeWidth+"px";
+		// this.canvasElementReference.current.style.height = this.props.boundHeight;
+		// this.canvasElementReference.current.style.width = this.props.boundWidth;
 		this.canvasContext.drawImage(this.imageElement, 0, 0, this.imageElement.width, this.imageElement.height, 0, 0, this.imageElement.width, this.imageElement.height);
+
+		this.canvasElementReference.current.width = relativeWidth;
+		this.canvasElementReference.current.height = relativeHeight;
+
+		this.canvasElementReference.current.style.width = relativeWidth+'px';
         console.log("TCL: ImageCanvas -> redraw -> this.canvasElementReference.current.style.width", this.canvasElementReference.current.style.width);
+		this.canvasElementReference.current.style.height = relativeHeight+'px';
         console.log("TCL: ImageCanvas -> redraw -> this.canvasElementReference.current.style.height", this.canvasElementReference.current.style.height);
 		if(this.invertMode === true) {
 			this.canvasContext.globalCompositeOperation = 'difference';
@@ -194,10 +194,27 @@ export default class ImageCanvas extends React.PureComponent {
 	}
 
 	fitToBounds() {
+        // console.log("TCL: ImageCanvas -> fitToBounds -> fitToBounds");
+		// const calcWidthRatio = this.imageElement.width/this.props.boundWidth;
+		// const calcHeightRatio = this.imageElement.height/this.props.boundHeight;
+		// if(calcHeightRatio > calcWidthRatio) {
+			// this.canvasElementReference.current.style.height = this.props.boundHeight+'px';
+            // console.log("TCL: ImageCanvas -> fitToBounds -> this.props.boundHeight", this.props.boundHeight);
+			// this.canvasElementReference.current.style.width = this.imageElement.width/calcHeightRatio+'px';
+			// this.canvasElementReference.current.style.width = this.props.boundWidth+'px';
+            // console.log("TCL: ImageCanvas -> fitToBounds -> this.props.boundWidth", this.props.boundWidth);
+		// } else {
+			// this.canvasElementReference.current.style.width = this.props.boundWidth+'px';
+			// this.canvasElementReference.current.style.height = this.props.boundHeight+'px';
+			// this.canvasElementReference.current.style.height = this.imageElement.height/calcWidthRatio+'px';
+		// }
 		const padding = this.props.padding || 0;
 		const widthRatio = (this.props.boundWidth - padding) / this.imageElement.width;
+        console.log("TCL: ImageCanvas -> fitToBounds -> widthRatio", widthRatio);
 		const heightRatio = (this.props.boundHeight - padding) / this.imageElement.height;
+        console.log("TCL: ImageCanvas -> fitToBounds -> heightRatio", heightRatio);
 		const scaleRatio = Math.min(1, widthRatio, heightRatio);
+        console.log("TCL: ImageCanvas -> fitToBounds -> scaleRatio", scaleRatio);
 		this.scale(scaleRatio);
 	}
 
@@ -239,29 +256,29 @@ export default class ImageCanvas extends React.PureComponent {
 
 	zoom(factor, mouseFocus) {
         console.log("TCL: ImageCanvas -> zoom -> zoom");
-		if(factor < 1 && this.isZoomOutAvailable() === false) {
-			return false;
-		}
+		// if(factor < 1 && this.isZoomOutAvailable() === false) {
+		// 	return false;
+		// }
 
-		this.scale(factor);
+		// this.scale(factor);
 
-		const relativeFactor = factor - 1;
-		if(this.getWidth() > this.props.boundWidth && mouseFocus === true) {
-			const currentX = this.getX();
-			const offsetX = (WindowService.getMouseX() - currentX) * relativeFactor;
-			let newX = currentX - offsetX;
-			this.setXWithBounds(newX);
-		} else {
-			this.centerX();
-		}
-		if(this.getHeight() > this.props.boundHeight && mouseFocus === true) {
-			const currentY = this.getY();
-			const offsetY = (WindowService.getMouseY() - currentY) * relativeFactor;
-			let newY = currentY - offsetY;
-			this.setYWithBounds(newY);
-		} else {
-			this.centerY();
-		}
+		// const relativeFactor = factor - 1;
+		// if(this.getWidth() > this.props.boundWidth && mouseFocus === true) {
+		// 	const currentX = this.getX();
+		// 	const offsetX = (WindowService.getMouseX() - currentX) * relativeFactor;
+		// 	let newX = currentX - offsetX;
+		// 	this.setXWithBounds(newX);
+		// } else {
+		// 	this.centerX();
+		// }
+		// if(this.getHeight() > this.props.boundHeight && mouseFocus === true) {
+		// 	const currentY = this.getY();
+		// 	const offsetY = (WindowService.getMouseY() - currentY) * relativeFactor;
+		// 	let newY = currentY - offsetY;
+		// 	this.setYWithBounds(newY);
+		// } else {
+		// 	this.centerY();
+		// }
 	}
 
 	toggleInvertMode() {

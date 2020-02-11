@@ -13,9 +13,6 @@ export default class TicketPhotoPreview extends React.PureComponent {
 			windowWidth: window.innerWidth,
 			image: require('./mapucze.jpg')
 		}
-		console.log("TCL: TicketPhotoPreview -> constructor -> this.props.image", this.props.image);
-
-
 
 		this.imageCanvasRenderCallback = this.imageCanvasRenderCallback.bind(this);
 
@@ -41,6 +38,8 @@ export default class TicketPhotoPreview extends React.PureComponent {
 	}
 
 	orientationChangedCallback() {
+        console.log("TCL: TicketPhotoPreview -> orientationChangedCallback -> orientationChangedCallback");
+		
 		this.setState({
 			windowHeight: window.innerHeight,
 			windowWidth: window.innerWidth
